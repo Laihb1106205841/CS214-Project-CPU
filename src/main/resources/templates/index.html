@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+</head>
+<body>
+<h1>Data Display</h1>
+<ul id="dataList"></ul>
+<textarea id="textInput" rows="5" cols="50"></textarea><br>
+<button id="addButton">Add Text</button>
+
+<script>
+    var dataListElement = document.getElementById("dataList");
+    var textInput = document.getElementById("textInput");
+    var addButton = document.getElementById("addButton");
+
+    addButton.addEventListener("click", function() {
+        var text = textInput.value.trim(); // 获取输入的文本并去除两端的空白字符
+        if (text !== "") {
+            // 发送 POST 请求到后端的 /addText 端点，并将文本作为请求体发送
+            fetch('/addText', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text }) // 将文本转换为 JSON 格式发送
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // 每次添加成功后重新加载数据
+                        fetchData();
+                        // 清空文本框
+                        textInput.value = "";
+                    } else {
+                        console.error('Failed to add text');
+                    }
+                })
+                .catch(error => console.error('Error adding text:', error));
+        }
+    });
+
+    function fetchData() {
+        fetch('/data') // 发送 GET 请求到后端的 /data 端点
+            .then(response => response.json())
+            .then(data => {
+                // 清空列表
+                dataListElement.innerHTML = '';
+                // 将获取到的数据添加到列表中
+                data.forEach(item => {
+                    var li = document.createElement("li");
+                    li.textContent = item;
+                    dataListElement.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // 页面加载完成后立即获取数据
+    document.addEventListener('DOMContentLoaded', fetchData);
+</script>
+</body>
+</html>
