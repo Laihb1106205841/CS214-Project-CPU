@@ -2,12 +2,18 @@ package chip.southbridge.Web;
 
 import chip.southbridge.DB.Druid;
 import chip.southbridge.UART.Sender;
+import lombok.Getter;
+import org.json.JSONObject;
 import org.slf4j.Logger;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 @RestController
 @CrossOrigin(origins = {
@@ -21,19 +27,63 @@ import java.util.List;
         "http://10.32.61.211:8999",
         "http://10.12.80.214:8082",
         "http://10.12.80.214:8999"})
+@Component
 public class WebAPI {
 
     private final Sender sender;
     private final Logger log;
+    @Getter
     private final Druid druid;
 
+    private final List<String> dataList = new ArrayList<>();
+
+    private final List<String> dataFromWeb = new ArrayList<>();
+    final Queue<String> uartQueue;
+
     @Autowired
-    public WebAPI(Sender sender,Logger log,Druid druid){
+    private AmqpTemplate amqpTemplate;
+
+    @Autowired
+    public WebAPI(Sender sender, Logger log, Druid druid, Queue<String> uartQueue){
         this.sender = sender;
         this.log = log;
         this.druid = druid;
+        this.uartQueue = uartQueue;
+        startListening();
     }
 
+    @RabbitListener(queues = "h")
+    public void receiveMessage(String message) {
+        log.info("Received message from MQ, add to Web: " + message);
+        dataList.add(message);
+    }
+
+    public void startListening() {
+//        Thread listenerThread = new Thread(() -> {
+//            log.info("Thread Start");
+//            while (true) {
+//                synchronized (amqpTemplate) {
+//                    // 检查队列是否为空
+//                    while (amqpTemplate) {
+//                        try {
+//                            // 如果为空，则等待队列非空
+//                            uartQueue.wait();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    // 从队列中取出数据并打印
+//                    String data = uartQueue.poll();
+//                    System.out.println("Received data from UART: " + data);
+//                    dataList.add(data);
+//                }
+//            }
+//
+//        });
+//
+//        // 启动线程
+//        listenerThread.start();
+    }
 
     @PostMapping("/processTextData")
     public String processTextData(@RequestBody String textData) {
@@ -53,12 +103,18 @@ public class WebAPI {
         log.info("Processing data: " + data);
     }
 
-    private List<String> dataList = new ArrayList<>();
+
 
     @GetMapping("/data")
     public List<String> getData() {
         // 返回存储在后端的数据
         return dataList;
+    }
+
+    @GetMapping("/dataReceived")
+    public List<String> getData2() {
+        // 返回存储在后端的数据
+        return dataFromWeb;
     }
 
     // 在其他地方更新数据，这里只是一个示例
@@ -76,9 +132,33 @@ public class WebAPI {
     }
     @PostMapping("/addText")
     public void addText(@RequestBody String text) {
-        // 接收到文本数据，可以在这里进行处理，比如保存到数据库或者其他操作
-        log.info("Received text: " + text);
+        // 接收到文本数据
+        text = extractText(text);
+        log.info("Received text from web: " + text);
+        dataFromWeb.add(text);
         sender.Spring2Uart(text);
-        dataList.add(text);
+//        dataList.add(text);
     }
+
+    @PostMapping("/clearDataList")
+    public void refresh() {
+        log.info("Clear Message!");
+        dataList.clear();
+        dataFromWeb.clear();
+    }
+
+    public static String extractText(String jsonString) {
+        try {
+            // 将 JSON 字符串解析为 JSONObject
+            JSONObject jsonObject = new JSONObject(jsonString);
+            // 从 JSONObject 中提取 "text" 字段的值
+            String text = jsonObject.getString("text");
+            return text;
+        } catch (Exception e) {
+            // 捕获异常并打印错误消息
+            System.out.println("JSON 解析错误: " + e.getMessage());
+            return null;
+        }
+    }
+
 }

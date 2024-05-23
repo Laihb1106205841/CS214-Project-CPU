@@ -76,10 +76,10 @@ public class Druid {
 
 
 
-
-    public static void main(String[] args) throws Exception{
-        Logger log = LoggerFactory.getLogger(SerialManager.class);
-        Druid d = new Druid(log);
+//
+//    public static void main(String[] args) throws Exception{
+//        Logger log = LoggerFactory.getLogger(SerialManager.class);
+//        Druid d = new Druid(log);
 //        // declare druid connection pool
 //        DruidDataSource dataSource = new DruidDataSource();
 //
@@ -157,7 +157,7 @@ public class Druid {
 //            e.printStackTrace();
 //        }
 //
-    }
+//    }
 
     public static Object getConnectionInner(Object connection){
         Object result = null;

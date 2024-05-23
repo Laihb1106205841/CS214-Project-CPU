@@ -31,7 +31,10 @@ public class Sender {
             return;
         }
 
-        byte[] dataBytes = SendData.getBytes();
+        byte[] dataBytes = hexStringToByteArray(SendData);
+
+        System.out.println(Arrays.toString(dataBytes));
+
         OutputStream outputStream = comPort.getOutputStream();
 
         try {
@@ -39,7 +42,7 @@ public class Sender {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.info("已发送数据: " + Arrays.toString(SendData.getBytes()));
+        log.info("Try to send to UART: " + Arrays.toString(SendData.getBytes()));
     }
     public void Spring2Uart(int SendData){
         if (!comPort.openPort()) {
@@ -57,7 +60,17 @@ public class Sender {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.info("已发送数据: " + SendData);
+        log.info("Try to send to UART: " + SendData);
+    }
+
+    public static byte[] hexStringToByteArray(String hexString) {
+        int len = hexString.length();
+        byte[] byteArray = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            byteArray[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
+                    + Character.digit(hexString.charAt(i + 1), 16));
+        }
+        return byteArray;
     }
 
 
