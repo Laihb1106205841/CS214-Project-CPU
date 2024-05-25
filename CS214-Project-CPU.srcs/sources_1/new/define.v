@@ -2,10 +2,10 @@
 `define     R_OP            7'b0110011
 `define     I_IMM_OP        7'b0010011
 `define     I_LOAD_OP       7'b0000011
-`define     I_JUMP_OP       7'b1100111
+`define     I_JUMP_OP       7'b1100111  // jalr
 `define     I_ECALL_OP      7'b1110011
 `define     S_OP            7'b0100011
-`define     J_OP            7'b1101111
+`define     J_OP            7'b1101111  // jal
 `define     B_OP            7'b1100011
 `define     U_OP            7'b0110111
 

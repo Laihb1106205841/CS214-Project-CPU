@@ -8,6 +8,7 @@ module wback (
     input       [4:0]   in_WriteReg,
     input               stall,
     input       [3:0]   in_ecall_a7,
+    input               in_flush,
     
     output  reg         out_RegWrite,
     output  reg [31:0]  out_WriteData,
@@ -27,9 +28,16 @@ module wback (
         out_ecall_10        <= (in_ecall_a7 == 4'ha);
     end
 
-    always @(negedge clk) begin
-        out_RegWrite        <= stall ? out_RegWrite  : RegWrite ;
-        out_WriteData       <= stall ? out_WriteData : WriteData;
-        out_WriteReg        <= stall ? out_WriteReg  : WriteReg ;
+    always @(negedge clk or negedge rst_n) begin
+        if(~rst_n) begin
+            out_RegWrite    <= 0;
+            out_WriteData   <= 0;
+            out_WriteReg    <= 0;
+        end
+        else begin
+            out_RegWrite        <= stall ? out_RegWrite  : RegWrite ;
+            out_WriteData       <= stall ? out_WriteData : WriteData;
+            out_WriteReg        <= stall ? out_WriteReg  : WriteReg ;
+        end
     end
 endmodule

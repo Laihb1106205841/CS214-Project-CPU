@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcsg324-1" LaunchTime="1716616812">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcsg324-1" LaunchTime="1716653825">
   <File Type="VDS-TIMING-PB" Name="cpu_top_timing_summary_synth.pb"/>
   <File Type="VDS-TIMINGSUMMARY" Name="cpu_top_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="cpu_top.dcp"/>
@@ -61,6 +61,13 @@
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/new/exe.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/fcvt.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>

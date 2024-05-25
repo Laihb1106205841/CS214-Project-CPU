@@ -17,6 +17,7 @@ proc create_report { reportName command } {
   }
 }
 set_param xicom.use_bs_reader 1
+set_msg_config -id {Common 17-41} -limit 10000000
 create_project -in_memory -part xc7a35tcsg324-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -40,6 +41,7 @@ read_verilog -library xil_defaultlib {
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/control.v
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/dmem.v
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/exe.v
+  /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/fcvt.v
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/fwd.v
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/idecode.v
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/ifetch.v

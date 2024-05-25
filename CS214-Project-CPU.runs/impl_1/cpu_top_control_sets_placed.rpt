@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-| Date         : Sat May 25 14:01:20 2024
+| Date         : Sun May 26 00:18:10 2024
 | Host         : node running 64-bit Ubuntu 22.04.3 LTS
 | Command      : report_control_sets -verbose -file cpu_top_control_sets_placed.rpt
 | Design       : cpu_top
@@ -22,8 +22,8 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Number of unique control sets                            |    67 |
-| Unused register locations in slices containing registers |   236 |
+| Number of unique control sets                            |   293 |
+| Unused register locations in slices containing registers |  1234 |
 +----------------------------------------------------------+-------+
 
 
@@ -33,11 +33,11 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |             367 |          117 |
-| No           | No                    | Yes                    |              96 |           29 |
-| No           | Yes                   | No                     |              18 |            7 |
-| Yes          | No                    | No                     |              75 |           31 |
-| Yes          | No                    | Yes                    |             472 |          177 |
+| No           | No                    | No                     |             425 |          128 |
+| No           | No                    | Yes                    |              96 |           23 |
+| No           | Yes                   | No                     |              18 |            5 |
+| Yes          | No                    | No                     |             121 |           61 |
+| Yes          | No                    | Yes                    |            1378 |          828 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
@@ -48,88 +48,316 @@ Table of Contents
 +-------------------------------------------+--------------------------------------------+-----------------------------------------+------------------+----------------+
 |                Clock Signal               |                Enable Signal               |             Set/Reset Signal            | Slice Load Count | Bel Load Count |
 +-------------------------------------------+--------------------------------------------+-----------------------------------------+------------------+----------------+
-|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | dmem_inst/AR[0]                         |                1 |              1 |
-|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | dmem_inst/AR[0]                         |                1 |              1 |
-|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | dmem_inst/AR[0]                         |                1 |              1 |
-|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | dmem_inst/AR[0]                         |                1 |              1 |
-| ~clk_BUFG                                 |                                            | ifetch_inst/PC_reg[0]_0[0]              |                1 |              1 |
-|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | dmem_inst/AR[0]                         |                1 |              1 |
-| ~clk_BUFG                                 |                                            | dmem_inst/AR[0]                         |                1 |              1 |
-|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | dmem_inst/AR[0]                         |                1 |              1 |
-|  u_but/slow_clk_reg_n_0                   |                                            | dmem_inst/AR[0]                         |                1 |              2 |
-|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | dmem_inst/AR[0]                         |                1 |              3 |
-|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | dmem_inst/AR[0]                         |                1 |              3 |
-|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | dmem_inst/AR[0]                         |                1 |              3 |
-|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | dmem_inst/AR[0]                         |                1 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                1 |              1 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                1 |              1 |
+|  u_but/slow_clk_reg_n_0                   |                                            | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              1 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                1 |              1 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                1 |              1 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | TubDisplay_inst/AR[0]                   |                1 |              1 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[28][11]_0  |                1 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              2 |
+| ~clk_BUFG                                 |                                            | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              2 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              3 |
 |  exe_inst/ALUControl_reg[2]_i_2_n_0       |                                            |                                         |                1 |              3 |
-| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[28]_0 | TubDisplay_inst/out_ALUResult_reg[2]    |                1 |              3 |
-|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              4 |
-|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              4 |
-|  clk_BUFG                                 |                                            | ifetch_inst/curr_time_a7_reg[3]         |                3 |              4 |
-| ~clk_BUFG                                 | dmem_inst/branch_reg[0]                    | ifetch_inst/PC_reg[0]_0[0]              |                2 |              4 |
-|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              4 |
-|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              4 |
-| ~clk_BUFG                                 | rst_n_IBUF                                 |                                         |                1 |              4 |
-|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[8][0][0]                  | TubDisplay_inst/tub_in0_reg[1]_0        |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x_reg[28][7]_0   |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[28][11]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[28][11]_0  |                3 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              3 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[28][7]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[27][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[28][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[8][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[8][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[8][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[8][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[8][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+| ~clk_BUFG                                 |                                            |                                         |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[9][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[9][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[9][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[9][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[9][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[29][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[30][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[23][20]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[10][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+| ~clk_BUFG                                 | rst_n_IBUF                                 |                                         |                3 |              4 |
+| ~clk_BUFG                                 | idecode_inst/out_ecall_a7_reg[0]_0[0]      |                                         |                1 |              4 |
+|  clk_BUFG                                 |                                            | ifetch_inst/curr_time_a7_reg[3]         |                1 |              4 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[10][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[10][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[10][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[10][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[11][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[11][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[11][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[11][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[11][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x_reg[28][7]_0   |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[24][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[25][31][0]                | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[20][28]_0  |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x_reg[22][24]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x_reg[16][12]_0  |                2 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[23][20]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x_reg[16][12]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x_reg[20][28]_0  |                1 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x_reg[21][16]_0  |                4 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x_reg[21][16]_0  |                3 |              4 |
+|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
 |  clk_BUFG                                 | wback_inst/x_reg[5][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[6][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[25][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
-| ~clk_BUFG                                 | dmem_inst/branch_reg[0]                    | dmem_inst/AR[0]                         |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[11][0][0]                 | TubDisplay_inst/tub_in0_reg[1]_0        |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[12][0][0]                 | TubDisplay_inst/tub_in0_reg[1]_0        |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | TubDisplay_inst/tub_in0_reg[1]_0        |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[9][0][0]                  | TubDisplay_inst/tub_in0_reg[1]_0        |                3 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | TubDisplay_inst/tub_in0_reg[1]_0        |                3 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[18][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[20][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[23][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
-|  clk_BUFG                                 | wback_inst/x_reg[26][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
-|  TubDisplay_inst/tub_data2_reg[7]_i_2_n_0 |                                            | TubDisplay_inst/out_ALUResult_reg[2]    |                2 |              7 |
-|  TubDisplay_inst/tub_data1_reg[7]_i_2_n_0 |                                            | TubDisplay_inst/out_ALUResult_reg[2]    |                2 |              7 |
-|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | TubDisplay_inst/tub_in0_reg[1]_0        |                3 |              8 |
-|  clk_BUFG                                 | wback_inst/x_reg[10][0][0]                 | TubDisplay_inst/tub_in0_reg[1]_0        |                2 |              8 |
-|  clk_BUFG                                 | wback_inst/x_reg[31][0][0]                 |                                         |                3 |              8 |
-| ~clk_BUFG                                 | idecode_inst/out_ecall_a7_reg[3]_0[0]      |                                         |                4 |             12 |
-|  TubDisplay_inst/slow_clk                 |                                            | TubDisplay_inst/tub_in0_reg[1]_0        |                3 |             16 |
+|  clk_BUFG                                 | wback_inst/x_reg[0][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[28][7]_0   |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[17][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[2][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                4 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[16][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[23][31][0]                | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[3][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[19][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[22][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[7][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[15][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[21][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                4 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[4][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[6][31][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[12][31][0]                | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[1][0][0]                  | idecode_inst/uregister/x[30][3]_i_1_n_0 |                3 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[14][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                1 |              5 |
+|  clk_BUFG                                 | wback_inst/x_reg[13][0][0]                 | idecode_inst/uregister/x[30][3]_i_1_n_0 |                2 |              5 |
+|  TubDisplay_inst/tub_data2_reg[7]_i_2_n_0 |                                            | TubDisplay_inst/AR[0]                   |                2 |              7 |
+|  TubDisplay_inst/tub_data1_reg[7]_i_2_n_0 |                                            | TubDisplay_inst/AR[0]                   |                2 |              7 |
+| ~clk_BUFG                                 | dmem_inst/out_RegWrite_reg_0[0]            | idecode_inst/uregister/x_reg[28][7]_0   |                3 |              9 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[20][28]_0  |                4 |             10 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[28][11]_0  |                3 |             10 |
+|  clk_BUFG                                 | wback_inst/x_reg[8][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                6 |             12 |
+|  clk_BUFG                                 | wback_inst/x_reg[9][0][0]                  | idecode_inst/uregister/x_reg[12][9]_0   |                5 |             12 |
+|  clk_BUFG                                 | wback_inst/x_reg[11][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                3 |             12 |
+|  clk_BUFG                                 | wback_inst/x_reg[10][0][0]                 | idecode_inst/uregister/x_reg[12][9]_0   |                4 |             12 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | idecode_inst/uregister/x_reg[12][9]_0   |                8 |             14 |
+|  TubDisplay_inst/slow_clk                 |                                            | TubDisplay_inst/tub_sel[7]_i_1_n_0      |                2 |             16 |
 |  clk_wiz_inst/inst/clk_out2               |                                            |                                         |                5 |             17 |
-|  clk_wiz_inst/inst/clk_out2               |                                            | dmem_inst/AR[0]                         |                4 |             21 |
-|  clk_BUFG                                 | idecode_inst/uregister/readData2_reg[28]_0 |                                         |                9 |             22 |
+|  clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 |                                         |                7 |             17 |
+|  clk_wiz_inst/inst/clk_out2               |                                            | idecode_inst/uregister/x_reg[28][7]_0   |                5 |             21 |
 |  clk_wiz_inst/inst/clk_out1               |                                            |                                         |                7 |             24 |
-| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[28]_0 |                                         |               14 |             29 |
-| ~clk_BUFG                                 | exe_inst/out_ALUResult[31]_i_1_n_0         | dmem_inst/AR[0]                         |               26 |             32 |
-|  clk_BUFG                                 | idecode_inst/uregister/readData2_reg[28]_0 | ifetch_inst/PC_reg[0]_0[0]              |               10 |             32 |
-| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[28]_0 | dmem_inst/AR[0]                         |               10 |             34 |
-|  clk_wiz_inst/inst/clk_out2               |                                            | TubDisplay_inst/tub_in0_reg[1]_0        |               19 |             55 |
-| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[28]_0 | ifetch_inst/PC_reg[0]_0[0]              |               21 |             76 |
-| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[28]_0 | idecode_inst/ucontrol/uFlag_reg_0       |               37 |            111 |
-|  clk_BUFG                                 |                                            |                                         |              104 |            323 |
+|  clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | ifetch_inst/PC_reg[0]_0                 |                9 |             32 |
+|  clk_BUFG                                 | wback_inst/x_reg[31][0][0]                 |                                         |               25 |             32 |
+| ~clk_BUFG                                 | exe_inst/out_ALUResult[31]_i_1_n_0         | exe_inst/AR[0]                          |               20 |             32 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | exe_inst/AR[0]                          |               10 |             46 |
+| ~clk_BUFG                                 | dmem_inst/out_RegWrite_reg_0[0]            | exe_inst/AR[0]                          |               17 |             51 |
+|  clk_wiz_inst/inst/clk_out2               |                                            | TubDisplay_inst/tub_sel[7]_i_1_n_0      |               13 |             56 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 |                                         |               25 |             64 |
+| ~clk_BUFG                                 | dmem_inst/out_RegWrite_reg_0[0]            | idecode_inst/uregister/x_reg[28][11]_0  |               14 |             65 |
+| ~clk_BUFG                                 | idecode_inst/uregister/readData2_reg[31]_0 | ifetch_inst/PC_reg[0]_0                 |               33 |             95 |
+|  clk_BUFG                                 |                                            |                                         |              113 |            377 |
 +-------------------------------------------+--------------------------------------------+-----------------------------------------+------------------+----------------+
 
 
 +--------+-----------------------+
 | Fanout | Number of ControlSets |
 +--------+-----------------------+
-| 1      |                     8 |
-| 2      |                     1 |
-| 3      |                     6 |
-| 4      |                     7 |
-| 5      |                    26 |
+| 1      |                     6 |
+| 2      |                    20 |
+| 3      |                    46 |
+| 4      |                   176 |
+| 5      |                    20 |
 | 7      |                     2 |
-| 8      |                     3 |
-| 12     |                     1 |
-| 16+    |                    13 |
+| 9      |                     1 |
+| 10     |                     2 |
+| 12     |                     4 |
+| 14     |                     1 |
+| 16+    |                    15 |
 +--------+-----------------------+
 
 

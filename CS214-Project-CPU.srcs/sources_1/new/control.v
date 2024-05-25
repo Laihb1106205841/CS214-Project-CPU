@@ -85,7 +85,7 @@ module control(
                     branch      <= 1'b1;
                     memRead     <= 1'b0;
                     memToReg    <= 1'b0;
-                    ALUOp       <= 2'b00; // Not relevant, can add directly: PC = PC + 4
+                    ALUOp       <= 2'b00; // Not relevant, can add directly: rd = PC + 4
                     memWrite    <= 1'b0;
                     ALUSrc_1    <= 1'b1; // PC
                     ALUSrc_2    <= 1'b1; // Immediate
@@ -121,7 +121,7 @@ module control(
                     branch      <= 1'b1;
                     memRead     <= 1'b0;
                     memToReg    <= 1'b0;
-                    ALUOp       <= 2'b00; // Not relevant, can add directly: PC = PC + 4
+                    ALUOp       <= 2'b00; // Not relevant, can add directly: rd = PC + 4
                     memWrite    <= 1'b0;
                     ALUSrc_1    <= 1'b1; // PC
                     ALUSrc_2    <= 1'b1; // Imm
@@ -136,7 +136,7 @@ module control(
                     ALUOp       <= 2'b01; // Determined by {funct3}
                     memWrite    <= 1'b0;
                     ALUSrc_1    <= 1'b0;
-                    ALUSrc_2    <= 1'b1;
+                    ALUSrc_2    <= 1'b0;
                     regWrite    <= 1'b0;
                     PCSrc       <= 1'b0;
                     uFlag       <= 1'b0;

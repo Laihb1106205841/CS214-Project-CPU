@@ -28,8 +28,9 @@ module exe (
     input       [4:0]   in_rd,
     input       [1:0]   in_ForwardA,
     input       [1:0]   in_ForwardB,
-    input       [31:0]  in_WriteData,
-    input       [31:0]  in_ALUResult,
+    input       [31:0]  in_ReadData, // Forward from MEM
+    input       [31:0]  in_ALUResult, // Forward from EXE
+    input       [31:0]  in_WriteData, // Forward from WB
     input       [4:0]   in_rs1,
     input       [4:0]   in_rs2,
     input       [3:0]   in_ecall_a7,
@@ -49,15 +50,17 @@ module exe (
     output  reg [4:0]   out_rd,
     output  reg [4:0]   out_rs1,
     output  reg [4:0]   out_rs2,
-    output  reg [3:0]   out_ecall_a7
+    output  reg [3:0]   out_ecall_a7,
+    output  reg [31:0]  operand1,
+    output  reg [31:0]  operand2,
+    output  wire[31:0]  SubResult
 );
 
     wire        [31:0]  PCSrc;
     reg         [31:0]  ALUSrc1;
     reg         [31:0]  ALUSrc2;
-    wire        [31:0]  SubResult;
-    reg         [31:0]  operand1;
-    reg         [31:0]  operand2;
+//    wire        [31:0]  SubResult;
+    
     reg         [2:0]   ALUControl;
     
     // Reg for mid-data transmission
@@ -76,6 +79,7 @@ module exe (
     reg         [1:0]   ALUOp    ;
     reg         [1:0]   ForwardA ;
     reg         [1:0]   ForwardB ;
+    reg         [31:0]  ReadData ;
     reg         [31:0]  WriteData;
     reg         [31:0]  ALUResult;
     reg         [3:0]   ecall_a7 ;
@@ -100,6 +104,7 @@ module exe (
         funct7              <= in_funct7;
         funct3              <= in_funct3;
         ALUOp               <= in_ALUOp;
+        ReadData            <= in_ReadData;
         WriteData           <= in_WriteData;
         ALUResult           <= in_ALUResult;
         ForwardA            <= in_ForwardA;
@@ -110,19 +115,19 @@ module exe (
     
     always @* begin
         case (ForwardA)
-            2'b00: operand1 = ALUSrc1;
-            2'b01: operand1 = WriteData;
+            2'b11: operand1 = WriteData;
+            2'b01: operand1 = ReadData;
             2'b10: operand1 = ALUResult;
-            default: operand1 = 0;
+            default: operand1 = ALUSrc1;
         endcase
     end
     
     always @* begin
         case (ForwardB)
-            2'b00: operand2 = ALUSrc2;
-            2'b01: operand2 = WriteData;
+            2'b11: operand2 = WriteData;
+            2'b01: operand2 = ReadData;
             2'b10: operand2 = ALUResult;
-            default: operand2 = 0;
+            default: operand2 = ALUSrc2;
         endcase
     end
 
@@ -158,7 +163,24 @@ module exe (
     end
 
     always @(negedge clk or negedge rst_n) begin  // Big ALU calculation
-        if(~rst_n || in_flush) begin
+        if(~rst_n) begin
+            out_ALUResult   <= 0;
+            out_Zero        <= 0;
+            out_RegWrite    <= 0;
+            out_MemtoReg    <= 0;
+            out_Branch      <= 0;
+            out_MemRead     <= 0;
+            out_MemWrite    <= 0;
+            out_ReadData2   <= 0;
+            out_funct7      <= 0;
+            out_funct3      <= 0;
+            out_rd          <= 0;
+            out_rs1         <= 0;
+            out_rs2         <= 0;
+            out_PC_imm      <= 0;
+            out_ecall_a7    <= 0;
+        end
+        else if (in_flush) begin
             out_ALUResult   <= 0;
             out_Zero        <= 0;
             out_RegWrite    <= 0;
@@ -184,18 +206,18 @@ module exe (
                 3'b101: out_ALUResult <= stall ? out_ALUResult : operand1 >> operand2[4:0];
                 3'b110: begin
                     out_ALUResult <= stall ? out_ALUResult : operand1 + 1; // Because our RAM is word addressable, this is not PC + 1.
-                    out_Zero <= stall ? out_Zero : (out_PC_imm == 0);
+                    out_Zero <= stall ? out_Zero : 1'b1;
                 end
                 3'b100: out_ALUResult <= stall ? out_ALUResult : operand2;
                 default: begin
-                    case(funct3)
-                        `BEQ_FUNCT:     out_Zero <= stall ? out_Zero : (SubResult == 0);
-                        `BNE_FUNCT:     out_Zero <= stall ? out_Zero : (SubResult != 0);
-                        `BLT_FUNCT:     out_Zero <= stall ? out_Zero : (SubResult < 0);
-                        `BGE_FUNCT:     out_Zero <= stall ? out_Zero : (SubResult >= 0);
-                        `BLTU_FUNCT:    out_Zero <= stall ? out_Zero : (SubResult < 0);
-                        `BGEU_FUNCT:    out_Zero <= stall ? out_Zero : (SubResult >= 0);
-                        default:        out_Zero <= stall ? out_Zero : (SubResult == 0);
+                    casex({funct3})
+                        {`BEQ_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult == 0);
+                        {`BNE_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult != 0);
+                        {`BLT_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult < 0);
+                        {`BGE_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult >= 0);
+                        {`BLTU_FUNCT}:   out_Zero <= stall ? out_Zero : (SubResult < 0);
+                        {`BGEU_FUNCT}:   out_Zero <= stall ? out_Zero : (SubResult >= 0);
+                        default:         out_Zero <= stall ? out_Zero : 1'b0;
                     endcase
                 end
             endcase

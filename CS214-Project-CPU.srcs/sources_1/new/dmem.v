@@ -16,6 +16,7 @@ module dmem(
     input           [6:0]       in_funct7,
     input           [2:0]       in_funct3,
     // Output to IFETCH
+    output  reg                 flush,
     output  reg                 out_PCSrc,
     output  reg     [31:0]      out_PC_imm,
     // Output to WriteBack
@@ -62,6 +63,7 @@ module dmem(
     
     always @(posedge clk) begin
         addr                <= stall ? addr : in_ALUResult[15:2];
+        flush               <= in_Branch & in_Zero;
         PCSrc               <= in_Branch & in_Zero;
         PC_imm              <= in_PC_imm;
         RegWrite            <= in_RegWrite;
@@ -77,6 +79,14 @@ module dmem(
         if(~rst_n) begin
             out_PCSrc       <= 1'b0     ;
             out_PC_imm      <= 32'b0    ;
+            out_RegWrite    <= 1'b0     ;
+            out_MemtoReg    <= 1'b0     ;
+            out_ALUResult   <= 32'b0    ;
+            out_rd          <= 5'b0     ;
+        end
+        else if (flush) begin
+            out_PCSrc       <= stall ? out_PCSrc     : PCSrc    ;
+            out_PC_imm      <= stall ? out_PC_imm    : PC_imm   ;
             out_RegWrite    <= 1'b0     ;
             out_MemtoReg    <= 1'b0     ;
             out_ALUResult   <= 32'b0    ;
