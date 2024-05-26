@@ -11,7 +11,8 @@
 
 // Define Funct for R type: {funct7, funct3}
 `define     ADD_FUNCT       10'b0000000000
-`define     AND_FUNCT       10'b0000000111 
+`define     AND_FUNCT       10'b0000000111
+`define     XOR_FUNCT       10'b0000000100
 
 // Define Funct for I type IMM: {funct3}
 `define     ADDI_FUNCT      3'b000

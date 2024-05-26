@@ -17,7 +17,6 @@ proc create_report { reportName command } {
   }
 }
 set_param xicom.use_bs_reader 1
-set_msg_config -id {Common 17-41} -limit 10000000
 create_project -in_memory -part xc7a35tcsg324-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -33,6 +32,7 @@ set_property ip_output_repo /home/ubuntu/Jaredan/CS214/Project/verilog/project_3
 set_property ip_cache_permissions {read write} [current_project]
 add_files /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/code.coe
 add_files /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/dmem32.coe
+add_files /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/hazard.coe
 read_verilog -library xil_defaultlib {
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/KeyDebouncer.v
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/TubParams.v
@@ -49,9 +49,6 @@ read_verilog -library xil_defaultlib {
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/wback.v
   /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v
 }
-read_ip -quiet /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/instr_mem_1/instr_mem.xci
-set_property used_in_implementation false [get_files -all /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/instr_mem_1/instr_mem_ooc.xdc]
-
 read_ip -quiet /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/dmem_uram_1/dmem_uram.xci
 set_property used_in_implementation false [get_files -all /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/dmem_uram_1/dmem_uram_ooc.xdc]
 
@@ -59,6 +56,9 @@ read_ip -quiet /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Projec
 set_property used_in_implementation false [get_files -all /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/clk_wiz/clk_wiz_board.xdc]
 set_property used_in_implementation false [get_files -all /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/clk_wiz/clk_wiz.xdc]
 set_property used_in_implementation false [get_files -all /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/clk_wiz/clk_wiz_ooc.xdc]
+
+read_ip -quiet /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/instr_mem_1/instr_mem.xci
+set_property used_in_implementation false [get_files -all /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/sources_1/ip/instr_mem_1/instr_mem_ooc.xdc]
 
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -71,8 +71,6 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/constrs_1/new/cpu.xdc
 set_property used_in_implementation false [get_files /home/ubuntu/Jaredan/CS214/Project/verilog/project_3/CS214-Project-CPU.srcs/constrs_1/new/cpu.xdc]
 
-read_xdc dont_touch.xdc
-set_property used_in_implementation false [get_files dont_touch.xdc]
 
 synth_design -top cpu_top -part xc7a35tcsg324-1
 

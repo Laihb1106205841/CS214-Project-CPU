@@ -10,7 +10,8 @@ module register(
     input               stall,
     output  reg [31:0]  readData1,
     output  reg [31:0]  readData2,
-    output      [31:0]  real_time_a0
+    output      [31:0]  real_time_a0,
+    output      [31:0]  real_time_a3
 );
     
     reg     [31:0]  x[31:0];
@@ -39,7 +40,7 @@ module register(
             // else begin
             for(i = 0; i < 31; i = i + 1) begin
                 case (i)
-                    2: x[i] <= 32'h00000020;  // sp: 0x7fffeffc
+                    2: x[i] <= 32'h0000F000;  // sp: 0x7fffeffc
                     3: x[i] <= 32'h10008000;  // gp
                     default: x[i] <= 32'h00000000;
                 endcase
@@ -47,8 +48,11 @@ module register(
             // end
         end
         else begin
-            if(regWrite) begin
+            if(regWrite && writeReg != 5'b0) begin
                 x[writeReg] <= writeData;
+            end
+            else if (regWrite && writeReg == 5'b0) begin
+                x[0] <= 32'h00000000;
             end
             else begin
                 for(i = 0; i < 31; i = i + 1) begin
@@ -61,12 +65,19 @@ module register(
         end
     end 
     
-    always @(negedge clk) begin
-        readData1 <= stall ? readData1 : x[readReg1];
-        readData2 <= stall ? readData2 : x[readReg2];
+    always @(negedge clk or negedge rst_n) begin
+        if(~rst_n) begin
+            readData1 <= 0;
+            readData2 <= 0;
+        end
+        else begin
+            readData1 <= stall ? readData1 : x[readReg1];
+            readData2 <= stall ? readData2 : x[readReg2];
         // real_time_a0 <= stall ? real_time_a0 : x[10];
         // real_time_a0 <= x[10];
+        end
     end
 
     assign real_time_a0 = x[10];
+    assign real_time_a3 = x[11];
 endmodule

@@ -75,7 +75,7 @@ module cpu_top(
     wire    [3:0]               ecall_a7_mem;
     wire    [31:0]              ReadData2_ex;
     wire                        ecall_10_wb;
-    wire                        flush_mem;
+    wire                        flush_ex;
     wire    [3:0]               test_case;
 
     // generate slow clock
@@ -88,7 +88,7 @@ module cpu_top(
 
     always @(posedge clk_5) begin
         cnt <= cnt + 1;
-        clk <= cnt[22];
+        clk <= cnt[5];
     end
     
     //-----------------Key Debouncer-----------------//
@@ -137,6 +137,7 @@ module cpu_top(
     wire  [31:0]   operand1;
     wire  [31:0]   operand2;
     wire  [31:0]   SubResult;
+    wire  [31:0]   real_time_a3;
     
     // assign  number_7 = (display_number_2) / 1000;
     // assign  number_6 = (display_number_2 - number_7 * 1000) / 100;
@@ -147,26 +148,28 @@ module cpu_top(
     //assign  number_4 = (display_number - number_5 * 1000) / 100;
     //assign  number_3 = (display_number - number_5 * 1000 - number_4 * 100) / 10;
     //assign  number_2 = (display_number - number_5 * 1000 - number_4 * 100 - number_3 * 10);
-    assign display_number_1 = PC_id[11:0];
+    assign display_number_1 = PC_id[11:0]
+    ;
     //assign display_number_2 = ReadData1_id; // WriteData_wb;
-    //assign display_number_3 = ReadData2_id; // rd_mem;
-    assign number_5 = operand1;
-    assign number_4 = operand2;
+    //assign display_number_3 = real_time_a3; // rd_mem;
+    
     assign display_number_4 = uart_output; 
     //assign display_number_2 = ;
     assign number_7 = display_number_1 / 10;
     assign number_6 = display_number_1 - number_7 * 10;
     
+    assign number_5 = uart_output[23:20];
+    assign number_4 = uart_output[19:16];
     //assign number_5 = display_number_2 / 10;
     //assign number_4 = display_number_2 - number_5 * 10;
-    assign number_3 = ReadData_mem;
-    assign number_2 = WriteData_wb;
+    assign number_3 = uart_output[15:12];
+    assign number_2 = uart_output[11:8];
     
     //assign number_3 = display_number_3 / 10;
     //assign number_2 = display_number_3 - number_3 * 10;
     
-    assign number_1 = display_number_4 / 10;
-    assign number_0 = display_number_4 - number_1 * 10;
+    assign number_1 = uart_output[7:4];
+    assign number_0 = uart_output[3:0];
     
     //assign number_0 = instruction_id[3:0];
     //assign number_1 = instruction_id[7:4];
@@ -187,13 +190,14 @@ module cpu_top(
     // assign led_l[3:2] = forward_a;
     assign led_l[1:0] = {Branch_ex, Zero_ex};
     wire    [6:0]   addr;
-    assign led_r[7] = flush_mem;
-    assign led_r[6:4] = addr;
+    assign led_r[7] = flush_ex;
+    assign led_r[6] = ecall_10_wb;
+    //assign led_r[6:4] = addr;
     assign led_r[3:0] = {forward_a, forward_b};
 
     //------------------UART------------------//
     assign uart_input_raw = {24'b0, sw_l[7:0]}; // Use the left switches as input here. 
-    assign uart_input_ready = but_active;  // TODO: posedge
+    assign uart_input_ready = but_posedge;  // TODO: posedge
     
     assign test_case = sw_r[3:0];
     
@@ -221,9 +225,9 @@ module cpu_top(
     ifetch ifetch_inst(
         .clk                    (clk),
         .rst_n                  (rst_n),
-        .in_PCSrc               (PCSrc),
+        .in_PCSrc               (flush_ex),
         .in_testcase            (test_case),  // [3:0]
-        .in_PC_imm              (PC_imm),  // [31:0]
+        .in_PC_imm              (PC_imm_ex),  // [31:0]
         .imemWriteEn            (sw_r[7]),  // 0 for work, 1 for update
         .imemWriteData          (uart_input),  // [31:0]
         .stall                  (stall),
@@ -247,7 +251,7 @@ module cpu_top(
         .in_instruction         (instruction_if),  // [31:0]
         .in_PC                  (PC_if),  // [31:0]
         .in_ecall_10            (ecall_10_wb),
-        .in_flush               (flush_mem),
+        .in_flush               (flush_ex),
         .uart_input_ready       (uart_input_ready),
         .uart_input             (uart_input),  // [31:0]
     
@@ -278,7 +282,8 @@ module cpu_top(
         .out_rs1                (rs1_id),  // [4:0]
         .out_rs2                (rs2_id),  // [4:0]
         .out_ecall_a7           (ecall_a7_id),  // [3:0]
-        .stall                  (stall)
+        .stall                  (stall),
+        .real_time_a3           (real_time_a3)
     );
     
     // Exe
@@ -297,7 +302,6 @@ module cpu_top(
         .in_PCSrc               (PCSrc_id),
         .in_uFlag               (uFlag_id),
 
-        .in_flush               (flush_mem),
         .in_PC                  (PC_id),  // [31:0]
         .in_ReadData1           (ReadData1_id),  // [31:0]
         .in_ReadData2           (ReadData2_id),  // [31:0]
@@ -317,6 +321,7 @@ module cpu_top(
 
         .in_ecall_a7            (ecall_a7_id),  // [3:0]
         .stall                  (stall),
+        .flush                  (flush_ex),
 
         .out_MemtoReg           (MemtoReg_ex),
         .out_RegWrite           (RegWrite_ex),
@@ -355,8 +360,7 @@ module cpu_top(
         
         .stall                  (stall),
         .in_ecall_a7            (ecall_a7_ex),  // [3:0]
-      
-        .flush                  (flush_mem),
+        .in_flush               (1'b0),
         // Output to IFETCH
         .out_PCSrc              (PCSrc),      
         .out_PC_imm             (PC_imm),  // [31:0]
@@ -383,7 +387,6 @@ module cpu_top(
         .in_ReadData            (ReadData_mem),  // [31:0] 
         .in_ALUResult           (ALUResult_mem),  // [31:0]
         .in_WriteReg            (rd_mem),  // [4:0]
-        .in_flush               (flush_mem),
         .stall                  (stall),
         .in_ecall_a7            (ecall_a7_mem),  // [3:0]
     

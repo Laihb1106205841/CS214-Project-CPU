@@ -15,8 +15,9 @@ module dmem(
     input           [3:0]       in_ecall_a7,
     input           [6:0]       in_funct7,
     input           [2:0]       in_funct3,
+    input                       in_flush,
     // Output to IFETCH
-    output  reg                 flush,
+    // output  reg                 flush,
     output  reg                 out_PCSrc,
     output  reg     [31:0]      out_PC_imm,
     // Output to WriteBack
@@ -54,47 +55,48 @@ module dmem(
 
     always @* begin
         case ({funct7, funct3})
-             {`I_LOAD_OP, `LW_FUNCT }: out_ReadData = dmem_out;
-             {`I_LOAD_OP, `LB_FUNCT }: out_ReadData = {{24{dmem_out[7]}}, dmem_out[7:0]};
-             {`I_LOAD_OP, `LBU_FUNCT}: out_ReadData = {24'b0, dmem_out[7:0]};
+             `LW_FUNCT : out_ReadData = dmem_out;
+             `LB_FUNCT : out_ReadData = {{24{dmem_out[7]}}, dmem_out[7:0]};
+             `LBU_FUNCT: out_ReadData = {24'b0, dmem_out[7:0]};
              default: out_ReadData = dmem_out;
         endcase
     end
     
     always @(posedge clk) begin
-        addr                <= stall ? addr : in_ALUResult[15:2];
-        flush               <= in_Branch & in_Zero;
-        PCSrc               <= in_Branch & in_Zero;
-        PC_imm              <= in_PC_imm;
-        RegWrite            <= in_RegWrite;
-        MemtoReg            <= in_MemtoReg;
-        ALUResult           <= in_ALUResult;
-        rd                  <= in_rd;
-        ecall_a7            <= in_ecall_a7;
-        funct7              <= in_funct7;
-        funct3              <= in_funct3;
+        if (in_flush) begin
+            addr            <= 14'b0;
+            RegWrite        <= 1'b0;
+            MemtoReg        <= 1'b0;
+            ALUResult       <= 32'b0;
+            rd              <= 5'b0;
+            ecall_a7        <= 4'b0;
+            funct7          <= 7'b0;
+            funct3          <= 3'b0;
+        end
+        else begin
+            addr            <= stall ? addr : in_ALUResult[15:2];
+            //flush           <= in_Branch & in_Zero;
+            //out_PCSrc       <= (stall) ? out_PCSrc : in_Branch & in_Zero;
+            //out_PC_imm      <= (stall) ? out_PC_imm : in_PC_imm;
+            RegWrite        <= in_RegWrite;
+            MemtoReg        <= in_MemtoReg;
+            ALUResult       <= in_ALUResult;
+            rd              <= in_rd;
+            ecall_a7        <= in_ecall_a7;
+            funct7          <= in_funct7;
+            funct3          <= in_funct3;
+        end
     end
 
     always @(negedge clk or negedge rst_n) begin
         if(~rst_n) begin
-            out_PCSrc       <= 1'b0     ;
-            out_PC_imm      <= 32'b0    ;
             out_RegWrite    <= 1'b0     ;
             out_MemtoReg    <= 1'b0     ;
             out_ALUResult   <= 32'b0    ;
             out_rd          <= 5'b0     ;
-        end
-        else if (flush) begin
-            out_PCSrc       <= stall ? out_PCSrc     : PCSrc    ;
-            out_PC_imm      <= stall ? out_PC_imm    : PC_imm   ;
-            out_RegWrite    <= 1'b0     ;
-            out_MemtoReg    <= 1'b0     ;
-            out_ALUResult   <= 32'b0    ;
-            out_rd          <= 5'b0     ;
+            out_ecall_a7    <= 0        ;
         end
         else begin
-            out_PCSrc       <= stall ? out_PCSrc     : PCSrc    ;
-            out_PC_imm      <= stall ? out_PC_imm    : PC_imm   ;
             out_RegWrite    <= stall ? out_RegWrite  : RegWrite ;
             out_MemtoReg    <= stall ? out_MemtoReg  : MemtoReg ;
             out_ALUResult   <= stall ? out_ALUResult : ALUResult;

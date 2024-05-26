@@ -8,7 +8,6 @@ module wback (
     input       [4:0]   in_WriteReg,
     input               stall,
     input       [3:0]   in_ecall_a7,
-    input               in_flush,
     
     output  reg         out_RegWrite,
     output  reg [31:0]  out_WriteData,
@@ -35,9 +34,9 @@ module wback (
             out_WriteReg    <= 0;
         end
         else begin
-            out_RegWrite        <= stall ? out_RegWrite  : RegWrite ;
-            out_WriteData       <= stall ? out_WriteData : WriteData;
-            out_WriteReg        <= stall ? out_WriteReg  : WriteReg ;
+            out_RegWrite        <= RegWrite;  // stall ? out_RegWrite  : RegWrite ;
+            out_WriteData       <= WriteData;  // stall ? out_WriteData : WriteData;
+            out_WriteReg        <= WriteReg;  // stall ? out_WriteReg  : WriteReg ;
         end
     end
 endmodule

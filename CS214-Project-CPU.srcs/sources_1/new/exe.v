@@ -16,9 +16,6 @@ module exe (
     input               in_PCSrc,
     input               in_uFlag,
     
-    // Input from Dmem isFlush
-    input               in_flush,
-    
     input       [31:0]  in_PC,
     input       [31:0]  in_ReadData1,
     input       [31:0]  in_ReadData2,
@@ -51,6 +48,7 @@ module exe (
     output  reg [4:0]   out_rs1,
     output  reg [4:0]   out_rs2,
     output  reg [3:0]   out_ecall_a7,
+    output              flush,
     output  reg [31:0]  operand1,
     output  reg [31:0]  operand2,
     output  wire[31:0]  SubResult
@@ -87,51 +85,84 @@ module exe (
     assign PCSrc = in_PCSrc? in_ReadData1 : in_PC;
     
     always @(posedge clk) begin  // copies and small ALU
-        // Directly pass to output
-        RegWrite            <= in_RegWrite;
-        MemtoReg            <= in_MemtoReg;
-        Branch              <= in_Branch;
-        MemRead             <= in_MemRead;
-        MemWrite            <= in_MemWrite;
-        ReadData2           <= in_ReadData2;
-        rd                  <= in_rd;
-        rs1                 <= in_rs1;
-        rs2                 <= in_rs2;
-        PC_imm              <= PCSrc + (in_Imm >> 2);
-        ecall_a7            <= in_ecall_a7;
+        if(flush) begin
+            // Directly pass to output
+            RegWrite            <= 1'b0;
+            MemtoReg            <= 1'b0;
+            Branch              <= 1'b0;
+            MemRead             <= 1'b0;
+            MemWrite            <= 1'b0;
+            ReadData2           <= 32'b0;
+            rd                  <= 5'b0;
+            rs1                 <= 5'b0;
+            rs2                 <= 5'b0;
+            PC_imm              <= 32'b0;
+            ecall_a7            <= 4'b0;
+
+            // Used in the module
+            funct7              <= 7'b0;
+            funct3              <= 3'b0;
+            ALUOp               <= 2'b0;
+            ReadData            <= 32'b0;
+            WriteData           <= 32'b0;
+            ALUResult           <= 32'b0;
+            ForwardA            <= 2'b0;
+            ForwardB            <= 2'b0;
+            ALUSrc1             <= 32'b0;
+            ALUSrc2             <= 32'b0;
+        end
+        else begin
+            // Directly pass to output
+            RegWrite            <= in_RegWrite;
+            MemtoReg            <= in_MemtoReg;
+            Branch              <= in_Branch;
+            MemRead             <= in_MemRead;
+            MemWrite            <= in_MemWrite;
+            case(in_ForwardB)
+                2'b11: ReadData2  <= in_WriteData;
+                2'b01: ReadData2  <= in_ReadData;
+                2'b10: ReadData2  <= in_ALUResult;
+                default: ReadData2  <= in_ReadData2;
+            endcase
+            rd                  <= in_rd;
+            rs1                 <= in_rs1;
+            rs2                 <= in_rs2;
+            PC_imm              <= PCSrc + (in_Imm >> 2);
+            ecall_a7            <= in_ecall_a7;
         
-        // Used in the module.
-        funct7              <= in_funct7;
-        funct3              <= in_funct3;
-        ALUOp               <= in_ALUOp;
-        ReadData            <= in_ReadData;
-        WriteData           <= in_WriteData;
-        ALUResult           <= in_ALUResult;
-        ForwardA            <= in_ForwardA;
-        ForwardB            <= in_ForwardB;
-        ALUSrc1             <= in_ALUSrc_1 ? in_PC : in_ReadData1;
-        ALUSrc2             <= in_ALUSrc_2 ? in_Imm : in_ReadData2;
+            // Used in the module
+            funct7              <= in_funct7;
+            funct3              <= in_funct3;
+            ALUOp               <= in_ALUOp;
+            ReadData            <= in_ReadData;
+            WriteData           <= in_WriteData;
+            ALUResult           <= in_ALUResult;
+            ForwardA            <= in_ForwardA;
+            ForwardB            <= in_ForwardB;
+            ALUSrc1             <= in_ALUSrc_1 ? in_PC : in_ReadData1;
+            ALUSrc2             <= in_ALUSrc_2 ? in_Imm : in_ReadData2;
+        end
     end
     
     always @* begin
-        case (ForwardA)
-            2'b11: operand1 = WriteData;
-            2'b01: operand1 = ReadData;
-            2'b10: operand1 = ALUResult;
+        case ({ForwardA, in_ALUSrc_1})
+            3'b110: operand1 = WriteData;
+            3'b010: operand1 = ReadData;
+            3'b100: operand1 = ALUResult;
             default: operand1 = ALUSrc1;
         endcase
     end
     
     always @* begin
-        case (ForwardB)
-            2'b11: operand2 = WriteData;
-            2'b01: operand2 = ReadData;
-            2'b10: operand2 = ALUResult;
+        case ({ForwardB, in_ALUSrc_2})
+            3'b110: operand2 = WriteData;
+            3'b010: operand2 = ReadData;
+            3'b100: operand2 = ALUResult;
             default: operand2 = ALUSrc2;
         endcase
     end
 
-    assign SubResult = operand1 - operand2;
+    //assign SubResult = operand1 - operand2;
 
     always  @* begin
         case(ALUOp) 
@@ -139,6 +170,7 @@ module exe (
                 case({funct7, funct3})
                     `ADD_FUNCT: ALUControl = 3'b000; // add
                     `AND_FUNCT: ALUControl = 3'b001; // and
+                    `XOR_FUNCT: ALUControl = 3'b010; // xor
                 endcase
             end
             2'b01: begin
@@ -180,23 +212,6 @@ module exe (
             out_PC_imm      <= 0;
             out_ecall_a7    <= 0;
         end
-        else if (in_flush) begin
-            out_ALUResult   <= 0;
-            out_Zero        <= 0;
-            out_RegWrite    <= 0;
-            out_MemtoReg    <= 0;
-            out_Branch      <= 0;
-            out_MemRead     <= 0;
-            out_MemWrite    <= 0;
-            out_ReadData2   <= 0;
-            out_funct7      <= 0;
-            out_funct3      <= 0;
-            out_rd          <= 0;
-            out_rs1         <= 0;
-            out_rs2         <= 0;
-            out_PC_imm      <= 0;
-            out_ecall_a7    <= 0;
-        end
         else begin
             case(ALUControl)
                 3'b000: out_ALUResult <= stall ? out_ALUResult : operand1 + operand2;
@@ -210,14 +225,14 @@ module exe (
                 end
                 3'b100: out_ALUResult <= stall ? out_ALUResult : operand2;
                 default: begin
-                    casex({funct3})
-                        {`BEQ_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult == 0);
-                        {`BNE_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult != 0);
-                        {`BLT_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult < 0);
-                        {`BGE_FUNCT}:    out_Zero <= stall ? out_Zero : (SubResult >= 0);
-                        {`BLTU_FUNCT}:   out_Zero <= stall ? out_Zero : (SubResult < 0);
-                        {`BGEU_FUNCT}:   out_Zero <= stall ? out_Zero : (SubResult >= 0);
-                        default:         out_Zero <= stall ? out_Zero : 1'b0;
+                    casex(funct3)
+                        `BEQ_FUNCT:    out_Zero <= stall ? out_Zero : (operand1 == operand2);
+                        `BNE_FUNCT:    out_Zero <= stall ? out_Zero : (operand1 != operand2);
+                        `BLT_FUNCT:    out_Zero <= stall ? out_Zero : (operand1 <  operand2);
+                        `BGE_FUNCT:    out_Zero <= stall ? out_Zero : (operand1 >= operand2);
+                        `BLTU_FUNCT:   out_Zero <= stall ? out_Zero : ({1'b0, operand1} <  {1'b0, operand2});
+                        `BGEU_FUNCT:   out_Zero <= stall ? out_Zero : ({1'b0, operand1} >= {1'b0, operand2});
+                        default:       out_Zero <= stall ? out_Zero : 1'b0;
                     endcase
                 end
             endcase
@@ -236,4 +251,5 @@ module exe (
             out_ecall_a7    <= stall ? out_ecall_a7  : ecall_a7 ;
         end
     end
+    assign flush = out_Branch & out_Zero;
 endmodule

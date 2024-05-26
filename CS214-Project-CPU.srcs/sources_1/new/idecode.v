@@ -41,7 +41,8 @@ module idecode(
     output  reg     [4:0]   out_rs1,
     output  reg     [4:0]   out_rs2,
     output  reg     [3:0]   out_ecall_a7,
-    output  reg             stall
+    output  reg             stall,
+    output          [31:0]  real_time_a3
 );
     reg     [6:0]       opcode;   
     reg     [31:0]      instruction;
@@ -53,14 +54,23 @@ module idecode(
 
     // Posedge, we let the data flow in the IDecode Module.
     always @(posedge clk) begin
-        opcode      <= in_instruction[6:0];
-        instruction <= in_instruction;
-        PC          <= in_PC;
-        rs_1        <= in_instruction[19:15];
-        rs_2        <= in_instruction[24:20];
+        if (in_flush) begin
+            opcode      <= 7'b0;
+            instruction <= 32'b0;
+            PC          <= 32'b0;
+            rs_1        <= 5'b0;
+            rs_2        <= 5'b0;
+        end
+        else begin
+            opcode      <= in_instruction[6:0];
+            instruction <= in_instruction;
+            PC          <= in_PC;
+            rs_1        <= in_instruction[19:15];
+            rs_2        <= in_instruction[24:20];
+        end
+
         // Judge whether the instruction is SYSCALL instruction and store the SYSCALL type
-        last_time_a7<= curr_time_a7;
-        curr_time_a7<= ((in_instruction & `LI7_PTRN) == `LI7_PTRN) ? in_instruction[23:20] : 0;
+        {last_time_a7, curr_time_a7} <= {curr_time_a7, ((in_instruction & `LI7_PTRN) == `LI7_PTRN) ? in_instruction[23:20] : 4'b0};
     end
     
     // When an `ecall` instruction is detected, we need to stall when the input immediate is 5 or 6. (Read Int or Read Float)
@@ -92,15 +102,15 @@ module idecode(
    
     // Negedge, we let the data flow out the IDecode Module.
     always @(negedge clk or negedge rst_n) begin
-        if(~rst_n || in_flush) begin
-            out_funct7 <= 7'b0;
-            out_funct3 <= 3'b0;
-            out_rd <= 5'b0;
+        if(~rst_n) begin
+            out_funct7      <= 7'b0;
+            out_funct3      <= 3'b0;
+            out_rd          <= 5'b0;
             out_instruction <= 32'b0;
-            out_rs1 <= 5'b0;
-            out_rs2 <= 5'b0;
-            out_PC <= 32'b0;
-            out_imm <= 32'b0;
+            out_rs1         <= 5'b0;
+            out_rs2         <= 5'b0;
+            out_PC          <= 32'b0;
+            out_imm         <= 32'b0;
         end
         else begin
             out_funct7      <= stall ? out_funct7      : {instruction[31:25]};
@@ -152,6 +162,7 @@ module idecode(
         .writeData      (uart_input_ready ? uart_input : in_WriteData),
         .readData1      (out_ReadData1),
         .readData2      (out_ReadData2),
-        .real_time_a0   (uart_output)
+        .real_time_a0   (uart_output),
+        .real_time_a3   (real_time_a3)
     );
 endmodule

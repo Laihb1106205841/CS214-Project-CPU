@@ -24,7 +24,7 @@ module ifetch(
             PC <= PC;
         end
         else begin
-            PC <= (in_PCSrc) ? in_PC_imm : ((PC + 1) % 25);
+            PC <= (in_PCSrc) ? in_PC_imm : (PC + 1);
         end
     end
 

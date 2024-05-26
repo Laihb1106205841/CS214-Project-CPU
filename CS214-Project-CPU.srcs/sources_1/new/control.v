@@ -19,7 +19,7 @@ module control(
 );
 
     always @(negedge clk or negedge rst_n) begin
-        if(~rst_n || flush) begin
+        if(~rst_n) begin
             branch      <= 1'b0;
             memRead     <= 1'b0;
             memToReg    <= 1'b0;
