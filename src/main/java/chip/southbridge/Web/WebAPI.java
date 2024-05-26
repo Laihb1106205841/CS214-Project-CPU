@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+import static chip.southbridge.util.DataTrans.binaryToHex;
+
 @RestController
 @CrossOrigin(origins = {
         "http://localhost:8082",
@@ -49,7 +51,6 @@ public class WebAPI {
         this.log = log;
         this.druid = druid;
         this.uartQueue = uartQueue;
-        startListening();
     }
 
     @RabbitListener(queues = "h")
@@ -58,32 +59,6 @@ public class WebAPI {
         dataList.add(message);
     }
 
-    public void startListening() {
-//        Thread listenerThread = new Thread(() -> {
-//            log.info("Thread Start");
-//            while (true) {
-//                synchronized (amqpTemplate) {
-//                    // 检查队列是否为空
-//                    while (amqpTemplate) {
-//                        try {
-//                            // 如果为空，则等待队列非空
-//                            uartQueue.wait();
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    // 从队列中取出数据并打印
-//                    String data = uartQueue.poll();
-//                    System.out.println("Received data from UART: " + data);
-//                    dataList.add(data);
-//                }
-//            }
-//
-//        });
-//
-//        // 启动线程
-//        listenerThread.start();
-    }
 
     @PostMapping("/processTextData")
     public String processTextData(@RequestBody String textData) {
@@ -108,11 +83,13 @@ public class WebAPI {
     @GetMapping("/data")
     public List<String> getData() {
         // 返回存储在后端的数据
+        log.info("get Data");
         return dataList;
     }
 
     @GetMapping("/dataReceived")
     public List<String> getData2() {
+        log.info("Data Receive from Web");
         // 返回存储在后端的数据
         return dataFromWeb;
     }
@@ -130,12 +107,16 @@ public class WebAPI {
         // 每次请求增加数字1
         dataList.add("1");
     }
+
     @PostMapping("/addText")
     public void addText(@RequestBody String text) {
         // 接收到文本数据
         text = extractText(text);
         log.info("Received text from web: " + text);
         dataFromWeb.add(text);
+
+//        String decimal = binaryToHex(text);
+
         sender.Spring2Uart(text);
 //        dataList.add(text);
     }
@@ -143,8 +124,8 @@ public class WebAPI {
     @PostMapping("/clearDataList")
     public void refresh() {
         log.info("Clear Message!");
-        dataList.clear();
-        dataFromWeb.clear();
+        dataList.clear();   // FPGA -> 电脑数据
+        dataFromWeb.clear(); // Ins数据
     }
 
     public static String extractText(String jsonString) {

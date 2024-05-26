@@ -14,21 +14,21 @@
     <div class="right">
         <h1>Send your Data</h1>
         <label for="textInput"></label><textarea id="textInput" rows="20" cols="50"></textarea><br>
-        <button id="addButton">Add Text</button>
+        <button onclick="SendIns()">Add Text</button>
 
         <p>Go to Main page</p>
         <button id="navigateButton">Go to OJ Page</button>
-        <button id="refreshButton">Refresh Receive</button>
+        <button onclick="fetchDataReceived2()">Refresh Receive</button>
         <button onclick="clearDataList()">Clear DataList</button>
 
     </div>
     <div class="left">
         <div class="right">
             <h1>Send History</h1>
-            <ul id="dataList2"></ul>
+            <ul id="dataList2"></ul> <!-- 用于显示发送历史记录的列表 -->
         </div>
         <div class="right">
-            <h1>Receive Display</h1>
+            <h1>Receive Display</h1> <!-- 用于显示接收到的数据的标题 -->
             <ul id="dataList"></ul>
         </div>
     </div>
@@ -37,10 +37,34 @@
 
 
 <script>
+
+    var dataListElement = document.getElementById("dataList");
+    // var dataListElement2 = document.getElementById("dataList2");
     function clearDataList() {
+
+        console.log("sdfkjsafjsjkfjklsafjks")
+
         fetch('/clearDataList', {
             method: 'POST',
-        }).then(response => response.json())
+        }).then(data => {
+                // 清空列表
+                dataListElement.innerHTML = '';
+
+                // 将获取到的数据添加到列表中
+                data.forEach(item => {
+                    var li = document.createElement("li");
+                    li.textContent = item;
+                    dataListElement.appendChild(li);
+                })
+        })
+
+        fetchDataReceived()
+
+    }
+
+    function fetchData() {
+        fetch('/data') // 发送 GET 请求到后端的 /data 端点
+            .then(response => response.json())
             .then(data => {
                 // 清空列表
                 dataListElement.innerHTML = '';
@@ -52,8 +76,70 @@
                     dataListElement.appendChild(li);
                 });
             })
-        document.addEventListener('DOMContentLoaded', fetchData);
-        document.addEventListener('DOMContentLoaded', fetchDataReceived);
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function fetchDataReceived() {
+        fetch('/dataReceived') // 发送 GET 请求到后端的 /dataReceived 端点
+            .then(response => response.json())
+            .then(data => {
+                // 清空列表
+                dataListElement2.innerHTML = '';
+                // 将获取到的数据添加到列表中
+                data.forEach(item => {
+                    var li = document.createElement("li");
+                    li.textContent = item;
+                    dataListElement2.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function SendIns() {
+        var text = textInput.value.trim(); // 获取输入的文本并去除两端的空白字符
+        if (text !== "") {
+            // 发送 POST 请求到后端的 /addText 端点，并将文本作为请求体发送
+            fetch('/addText', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text }) // 将文本转换为 JSON 格式发送
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // 每次添加成功后重新加载数据
+                        fetchDataReceived();
+                        // 清空文本框
+                        textInput.value = "";
+                    } else {
+                        console.error('Failed to add text');
+                    }
+                })
+                .catch(error => console.error('Error adding text:', error));
+
+            // fetchDataReceived();
+            fetchData();
+        }else
+        {
+            console.warn("null text!")
+        }}
+
+    var dataListElement2P = document.getElementById("dataList");
+    function fetchDataReceived2() {
+        fetch('/data') // 发送 GET 请求到后端的 /dataReceived 端点
+            .then(response => response.json())
+            .then(data => {
+                // 清空列表
+                dataListElement2P.innerHTML = '';
+                // 将获取到的数据添加到列表中
+                data.forEach(item => {
+                    var li = document.createElement("li");
+                    li.textContent = item;
+                    dataListElement2P.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
     }
 </script>
 
@@ -65,10 +151,9 @@
     });
 </script>
 
-<script>
 
-</script>
 <script src="sc.js"></script>
+
 
 </body>
 

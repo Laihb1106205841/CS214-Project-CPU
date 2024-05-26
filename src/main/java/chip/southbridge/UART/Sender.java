@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 
+
 @Component
 public class Sender {
     public SerialPort comPort ; // 指定COM端口
@@ -31,9 +32,13 @@ public class Sender {
             return;
         }
 
-        byte[] dataBytes = hexStringToByteArray(SendData);
+        // 使用正则表达式 \\s* 匹配一个或多个空格，| 表示或，逗号会被替换为空格
+        String[] sending = SendData.replaceAll("\\s*,\\s*|\\s+", " ").split("\\s+");
 
-        System.out.println(Arrays.toString(dataBytes));
+        log.info("Try to send to UART: " + Arrays.toString(sending));
+
+        byte[] dataBytes = hexStringsToByteArray(sending);
+
 
         OutputStream outputStream = comPort.getOutputStream();
 
@@ -42,8 +47,30 @@ public class Sender {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.info("Try to send to UART: " + Arrays.toString(SendData.getBytes()));
+
     }
+
+    public static byte[] hexStringsToByteArray(String[] hexStrings) {
+        StringBuilder concatenatedHex = new StringBuilder();
+        // 将字符串数组中的所有字符串连接起来
+        for (String hex : hexStrings) {
+            concatenatedHex.append(hex);
+        }
+        // 调用现有的方法将连接后的字符串转换为字节数组
+        return hexStringToByteArray(concatenatedHex.toString());
+    }
+
+
+    public static byte[] hexStringToByteArray(String hexString) {
+        int len = hexString.length();
+        byte[] byteArray = new byte[len / 2];
+        for (int i = 0; i < len-1; i += 2) {
+            byteArray[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
+                    + Character.digit(hexString.charAt(i + 1), 16));
+        }
+        return byteArray;
+    }
+
     public void Spring2Uart(int SendData){
         if (!comPort.openPort()) {
             log.error("not open");
@@ -61,16 +88,6 @@ public class Sender {
             throw new RuntimeException(e);
         }
         log.info("Try to send to UART: " + SendData);
-    }
-
-    public static byte[] hexStringToByteArray(String hexString) {
-        int len = hexString.length();
-        byte[] byteArray = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            byteArray[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
-                    + Character.digit(hexString.charAt(i + 1), 16));
-        }
-        return byteArray;
     }
 
 

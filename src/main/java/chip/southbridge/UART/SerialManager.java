@@ -35,7 +35,7 @@ import java.util.Queue;
 public class SerialManager {
 
     String COM = "COM4";
-    final int BaudRate = 9600;
+    final int BaudRate = 128000;
     final int NumDataBits = 8;
     final int steNumStopBits = 1;
     public SerialPort comPort ; // 指定COM端口
@@ -96,11 +96,13 @@ public class SerialManager {
 
                             byte[] newData = new byte[comPort.bytesAvailable()];
                             comPort.readBytes(newData, newData.length);
-                            System.out.println(Arrays.toString(newData));
-                            String receivedData = BytePrintAsString(newData);
+
+                            log.info(Arrays.toString(newData));
+
+                            String receivedData = decimalToHexString(Arrays.toString(newData));
 
                             // 处理接收到的数据
-                            log.info("UART Receive data: " + receivedData);
+                            log.info("UART Receive data: " + receivedData + ", send to MQ");
                             amqpTemplate.convertAndSend("h",receivedData);
                         }
                     }
@@ -125,24 +127,27 @@ public class SerialManager {
             }
             return hex.toString();
         }
-        public static String byteArrayToBinaryString(byte[] newData) {
-            StringBuilder binaryStringBuilder = new StringBuilder();
-            // 遍历字节数组中的每个字节
-            for (byte b : newData) {
-                // 将每个字节转换为无符号整数以保留前导零
-                int unsignedInt = b & 0xFF;
-                // 使用Integer.toBinaryString()将整数转换为二进制字符串
-                String binaryByte = Integer.toBinaryString(unsignedInt);
-                // 如果字符串长度不足8位，则在前面添加零，使其达到8位长度
-                while (binaryByte.length() < 8) {
-                    binaryByte = "0" + binaryByte;
+        public static String decimalToHexString(String decimalString) {
+            // 去除字符串中的非数字字符
+            String[] decimalArray = decimalString.replaceAll("\\[|\\]|\\s", "").split(",");
+            StringBuilder hexStringBuilder = new StringBuilder();
+            // 遍历每个十进制数字并转换为十六进制表示
+            for (String decimal : decimalArray) {
+                try {
+                    int decimalValue = Integer.parseInt(decimal.trim());
+                    // 使用Integer.toHexString()将十进制转换为十六进制
+                    String hex = Integer.toHexString(decimalValue);
+                    // 如果转换后的十六进制表示只有一位，需要在前面添加零
+                    if (hex.length() == 1) {
+                        hex = "0" + hex;
+                    }
+                    hexStringBuilder.append(hex);
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid decimal number: " + decimal);
                 }
-                // 拼接每个字节的二进制字符串
-                binaryStringBuilder.append(binaryByte);
             }
-            return binaryStringBuilder.toString();
+            return hexStringBuilder.toString().toUpperCase(); // 转换为大写字母表示
         }
-
         public void exe(){
             Process process;
             try {
