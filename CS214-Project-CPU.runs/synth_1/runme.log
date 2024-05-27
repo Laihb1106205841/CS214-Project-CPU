@@ -1,0 +1,826 @@
+
+*** Running vivado
+    with args -log cpu_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source cpu_top.tcl
+
+
+****** Vivado v2017.4 (64-bit)
+  **** SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+  **** IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source cpu_top.tcl -notrace
+Command: synth_design -top cpu_top -part xc7a35tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 19328 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 345.395 ; gain = 102.480
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'cpu_top' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:2]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/clk_wiz_stub.v:5]
+INFO: [Synth 8-256] done synthesizing module 'clk_wiz' (1#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/clk_wiz_stub.v:5]
+WARNING: [Synth 8-350] instance 'clk_wiz_inst' of module 'clk_wiz' requires 6 connections, but only 5 given [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:95]
+INFO: [Synth 8-638] synthesizing module 'KeyDebouncer' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/KeyDebouncer.v:2]
+INFO: [Synth 8-256] done synthesizing module 'KeyDebouncer' (2#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/KeyDebouncer.v:2]
+INFO: [Synth 8-638] synthesizing module 'uart_bmpg_0' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/uart_bmpg_0_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'uart_bmpg_0' (3#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/uart_bmpg_0_stub.v:6]
+INFO: [Synth 8-638] synthesizing module 'TubDisplay' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:2]
+	Parameter IMM_LEN bound to: 4 - type: integer 
+	Parameter NUM_TUBS bound to: 8 - type: integer 
+	Parameter NUM_DIGITS bound to: 8 - type: integer 
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:53]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:72]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:91]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:110]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:129]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:148]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:167]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:186]
+INFO: [Synth 8-256] done synthesizing module 'TubDisplay' (4#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:2]
+INFO: [Synth 8-638] synthesizing module 'fcvt' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/fcvt.v:1]
+	Parameter EXPONENT_BIAS bound to: 15 - type: integer 
+	Parameter EXPONENT_LENGTH bound to: 5 - type: integer 
+	Parameter MANTISSA_LENGTH bound to: 10 - type: integer 
+WARNING: [Synth 8-567] referenced signal 'uart_input' should be on the sensitivity list [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/fcvt.v:29]
+INFO: [Synth 8-256] done synthesizing module 'fcvt' (5#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/fcvt.v:1]
+INFO: [Synth 8-638] synthesizing module 'ifetch' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/ifetch.v:1]
+	Parameter ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter INITIALIZATION bound to: -1 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'instr_mem' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/instr_mem_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'instr_mem' (6#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/instr_mem_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'ifetch' (7#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/ifetch.v:1]
+INFO: [Synth 8-638] synthesizing module 'idecode' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/idecode.v:3]
+INFO: [Synth 8-638] synthesizing module 'control' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/control.v:3]
+INFO: [Synth 8-256] done synthesizing module 'control' (8#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/control.v:3]
+INFO: [Synth 8-638] synthesizing module 'register' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/register.v:1]
+WARNING: [Synth 8-5788] Register x_reg[31] in module register is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/register.v:43]
+INFO: [Synth 8-256] done synthesizing module 'register' (9#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/register.v:1]
+WARNING: [Synth 8-689] width (32) of port connection 'writeReg' does not match port width (5) of module 'register' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/idecode.v:161]
+WARNING: [Synth 8-5788] Register out_ecall_a7_reg in module idecode is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/idecode.v:123]
+INFO: [Synth 8-256] done synthesizing module 'idecode' (10#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/idecode.v:3]
+INFO: [Synth 8-638] synthesizing module 'exe' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/exe.v:3]
+INFO: [Synth 8-226] default block is never used [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/exe.v:168]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/exe.v:170]
+WARNING: [Synth 8-3848] Net SubResult in module/entity exe does not have driver. [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/exe.v:54]
+INFO: [Synth 8-256] done synthesizing module 'exe' (11#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/exe.v:3]
+WARNING: [Synth 8-350] instance 'exe_inst' of module 'exe' requires 47 connections, but only 45 given [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:311]
+INFO: [Synth 8-638] synthesizing module 'dmem' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/dmem.v:1]
+INFO: [Synth 8-638] synthesizing module 'dmem_uram' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/dmem_uram_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'dmem_uram' (12#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/realtime/dmem_uram_stub.v:6]
+WARNING: [Synth 8-3848] Net out_PCSrc in module/entity dmem does not have driver. [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/dmem.v:21]
+WARNING: [Synth 8-3848] Net out_PC_imm in module/entity dmem does not have driver. [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/dmem.v:22]
+INFO: [Synth 8-256] done synthesizing module 'dmem' (13#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/dmem.v:1]
+WARNING: [Synth 8-689] width (7) of port connection 'out_addr' does not match port width (15) of module 'dmem' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:398]
+WARNING: [Synth 8-350] instance 'dmem_inst' of module 'dmem' requires 32 connections, but only 30 given [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+INFO: [Synth 8-638] synthesizing module 'wback' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/wback.v:1]
+INFO: [Synth 8-256] done synthesizing module 'wback' (14#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/wback.v:1]
+INFO: [Synth 8-638] synthesizing module 'fwd' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/fwd.v:1]
+INFO: [Synth 8-256] done synthesizing module 'fwd' (15#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/fwd.v:1]
+INFO: [Synth 8-256] done synthesizing module 'cpu_top' (16#1) [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:2]
+WARNING: [Synth 8-3331] design wback has unconnected port stall
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PCSrc
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[31]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[30]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[29]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[28]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[27]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[26]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[25]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[24]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[23]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[22]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[21]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[20]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[19]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[18]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[17]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[16]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[15]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[14]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[13]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[12]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[11]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[10]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[9]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[8]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[7]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[6]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[5]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[4]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[3]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[2]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[1]
+WARNING: [Synth 8-3331] design dmem has unconnected port out_PC_imm[0]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_MemRead
+WARNING: [Synth 8-3331] design dmem has unconnected port in_Branch
+WARNING: [Synth 8-3331] design dmem has unconnected port in_Zero
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[31]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[30]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[29]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[28]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[27]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[26]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[25]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[24]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[23]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[22]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[21]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[20]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[19]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[18]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[17]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[16]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[15]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[14]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[13]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[12]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[11]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[10]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[9]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[8]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[7]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[6]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[5]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[4]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[3]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[2]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[1]
+WARNING: [Synth 8-3331] design dmem has unconnected port in_PC_imm[0]
+WARNING: [Synth 8-3331] design dmem has unconnected port upg_rst_i
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[31]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[30]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[29]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[28]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[27]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[26]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[25]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[24]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[23]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[22]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[21]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[20]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[19]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[18]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[17]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[16]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[15]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[14]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[13]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[12]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[11]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[10]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[9]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[8]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[7]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[6]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[5]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[4]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[3]
+WARNING: [Synth 8-3331] design exe has unconnected port SubResult[2]
+INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 397.078 ; gain = 154.164
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct7[6] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct7[5] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct7[4] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct7[3] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct7[2] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct7[1] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct7[0] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct3[2] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct3[1] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+WARNING: [Synth 8-3295] tying undriven pin dmem_inst:in_funct3[0] to constant 0 [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:367]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:01 ; elapsed = 00:00:03 . Memory (MB): peak = 397.078 ; gain = 154.164
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a35tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp4/clk_wiz_in_context.xdc] for cell 'clk_wiz_inst'
+Finished Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp4/clk_wiz_in_context.xdc] for cell 'clk_wiz_inst'
+Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp5/dmem_uram_in_context.xdc] for cell 'dmem_inst/udram'
+Finished Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp5/dmem_uram_in_context.xdc] for cell 'dmem_inst/udram'
+Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp6/instr_mem_in_context.xdc] for cell 'ifetch_inst/u_instr_mem'
+Finished Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp6/instr_mem_in_context.xdc] for cell 'ifetch_inst/u_instr_mem'
+Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp7/uart_bmpg_0_in_context.xdc] for cell 'lut'
+Finished Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp7/uart_bmpg_0_in_context.xdc] for cell 'lut'
+Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/constrs_1/new/cpu.xdc]
+WARNING: [Constraints 18-619] A clock with name 'fpga_clk' already exists, overwriting the previous clock with the same name. [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/constrs_1/new/cpu.xdc:2]
+Finished Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/constrs_1/new/cpu.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/constrs_1/new/cpu.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/cpu_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/cpu_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 744.672 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:03 ; elapsed = 00:00:13 . Memory (MB): peak = 744.672 ; gain = 501.758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:03 ; elapsed = 00:00:13 . Memory (MB): peak = 744.672 ; gain = 501.758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for fpga_clk. (constraint file  D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp4/clk_wiz_in_context.xdc, line 5).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for fpga_clk. (constraint file  D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/.Xil/Vivado-11576-DESKTOP-1QQLLU2/dcp4/clk_wiz_in_context.xdc, line 6).
+Applied set_property DONT_TOUCH = true for clk_wiz_inst. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for dmem_inst/udram. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for ifetch_inst/u_instr_mem. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for lut. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:03 ; elapsed = 00:00:13 . Memory (MB): peak = 744.672 ; gain = 501.758
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "slow_clk" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tub_data1" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tub_data2" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element cnt_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:213]
+INFO: [Synth 8-5544] ROM "rounding_mode" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+WARNING: [Synth 8-6014] Unused sequential element PC_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/ifetch.v:30]
+INFO: [Synth 8-4471] merging register 'memToReg_reg' into 'memRead_reg' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/control.v:25]
+WARNING: [Synth 8-6014] Unused sequential element memToReg_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/control.v:25]
+INFO: [Synth 8-5587] ROM size for "branch" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "memRead" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "ALUOp" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "memWrite" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "ALUSrc_1" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "ALUSrc_2" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5587] ROM size for "regWrite" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "PCSrc" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "uFlag" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[31]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[30]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "x_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/exe.v:216]
+INFO: [Synth 8-5546] ROM "ALUControl" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element cnt_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:105]
+WARNING: [Synth 8-327] inferring latch for variable 'tub_data1_reg' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:234]
+WARNING: [Synth 8-327] inferring latch for variable 'tub_data2_reg' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:235]
+WARNING: [Synth 8-327] inferring latch for variable 'ALUControl_reg' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/exe.v:171]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:13 . Memory (MB): peak = 744.672 ; gain = 501.758
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 11    
+	   2 Input     20 Bit       Adders := 2     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 43    
+	               20 Bit    Registers := 2     
+	               14 Bit    Registers := 1     
+	                8 Bit    Registers := 9     
+	                7 Bit    Registers := 3     
+	                5 Bit    Registers := 7     
+	                4 Bit    Registers := 4     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 28    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 15    
+	   4 Input     32 Bit        Muxes := 3     
+	   6 Input     32 Bit        Muxes := 1     
+	   8 Input     32 Bit        Muxes := 1     
+	   3 Input     32 Bit        Muxes := 1     
+	   2 Input     20 Bit        Muxes := 2     
+	   2 Input     14 Bit        Muxes := 2     
+	   8 Input      8 Bit        Muxes := 2     
+	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 2     
+	   6 Input      3 Bit        Muxes := 1     
+	   7 Input      3 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 5     
+	   4 Input      2 Bit        Muxes := 2     
+	  10 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 40    
+	   8 Input      1 Bit        Muxes := 5     
+	  10 Input      1 Bit        Muxes := 8     
+	   3 Input      1 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module cpu_top 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   3 Input     32 Bit        Muxes := 1     
+Module KeyDebouncer 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     20 Bit       Adders := 1     
++---Registers : 
+	               20 Bit    Registers := 1     
+	                1 Bit    Registers := 8     
++---Muxes : 
+	   2 Input     20 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module TubDisplay 
+Detailed RTL Component Info : 
++---Registers : 
+	                8 Bit    Registers := 9     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   8 Input      8 Bit        Muxes := 2     
+	   8 Input      1 Bit        Muxes := 2     
+Module fcvt 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 9     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 4     
+	   4 Input     32 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   4 Input      2 Bit        Muxes := 1     
+Module ifetch 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input     14 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module control 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input      2 Bit        Muxes := 1     
+	  10 Input      2 Bit        Muxes := 1     
+	  10 Input      1 Bit        Muxes := 8     
+Module register 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 32    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 31    
+	   3 Input      1 Bit        Muxes := 1     
+Module idecode 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                7 Bit    Registers := 1     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   6 Input     32 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 2     
+	   6 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 4     
+Module exe 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 2     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 7     
+	                7 Bit    Registers := 1     
+	                5 Bit    Registers := 3     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 3     
+	   8 Input     32 Bit        Muxes := 1     
+	   4 Input     32 Bit        Muxes := 1     
+	   7 Input      3 Bit        Muxes := 2     
+	   8 Input      1 Bit        Muxes := 3     
+	   7 Input      1 Bit        Muxes := 1     
+Module dmem 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+	               14 Bit    Registers := 1     
+	                7 Bit    Registers := 1     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   4 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input     14 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
+Module wback 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+	                5 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+Module fwd 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      2 Bit        Muxes := 4     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4471] merging register 'but_active_reg' into 'cur_reg' [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/KeyDebouncer.v:45]
+WARNING: [Synth 8-6014] Unused sequential element but_active_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/KeyDebouncer.v:45]
+INFO: [Synth 8-5546] ROM "slow_clk" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "slow_clk" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tub_data1" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "tub_data2" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element cnt_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/TubDisplay.v:213]
+WARNING: [Synth 8-6014] Unused sequential element PC_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/ifetch.v:30]
+INFO: [Synth 8-5587] ROM size for "ucontrol/branch" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "ucontrol/memRead" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "ucontrol/ALUOp" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "ucontrol/memWrite" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "ucontrol/ALUSrc_1" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "ucontrol/ALUSrc_2" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5587] ROM size for "ucontrol/regWrite" is below threshold of ROM address width. It will be mapped to LUTs
+INFO: [Synth 8-5546] ROM "ucontrol/PCSrc" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "ucontrol/uFlag" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element cnt_reg was removed.  [D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.srcs/sources_1/new/cpu_top.v:105]
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[15]' (FDR) to 'idecode_inst/rs_1_reg[0]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[16]' (FDR) to 'idecode_inst/rs_1_reg[1]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[17]' (FDR) to 'idecode_inst/rs_1_reg[2]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[18]' (FDR) to 'idecode_inst/rs_1_reg[3]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[19]' (FDR) to 'idecode_inst/rs_1_reg[4]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[20]' (FDR) to 'idecode_inst/rs_2_reg[0]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[21]' (FDR) to 'idecode_inst/rs_2_reg[1]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[22]' (FDR) to 'idecode_inst/rs_2_reg[2]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[23]' (FDR) to 'idecode_inst/rs_2_reg[3]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[24]' (FDR) to 'idecode_inst/rs_2_reg[4]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct3_reg[2]' (FDR) to 'dmem_inst/funct3_reg[1]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct3_reg[0]' (FDR) to 'dmem_inst/funct3_reg[1]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct3_reg[1]' (FDR) to 'dmem_inst/funct7_reg[0]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct7_reg[4]' (FDR) to 'dmem_inst/funct7_reg[0]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct7_reg[3]' (FDR) to 'dmem_inst/funct7_reg[0]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct7_reg[6]' (FDR) to 'dmem_inst/funct7_reg[0]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct7_reg[5]' (FDR) to 'dmem_inst/funct7_reg[0]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct7_reg[2]' (FDR) to 'dmem_inst/funct7_reg[0]'
+INFO: [Synth 8-3886] merging instance 'dmem_inst/funct7_reg[0]' (FDR) to 'dmem_inst/funct7_reg[1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (dmem_inst/\funct7_reg[1] )
+INFO: [Synth 8-3886] merging instance 'TubDisplay_inst/tub_in0_reg[0]' (FDC) to 'TubDisplay_inst/tub_in1_reg[0]'
+INFO: [Synth 8-3886] merging instance 'TubDisplay_inst/tub_in2_reg[0]' (FDC) to 'TubDisplay_inst/tub_in1_reg[0]'
+INFO: [Synth 8-3886] merging instance 'TubDisplay_inst/tub_in3_reg[0]' (FDC) to 'TubDisplay_inst/tub_in1_reg[0]'
+INFO: [Synth 8-3886] merging instance 'TubDisplay_inst/tub_in1_reg[0]' (FDC) to 'TubDisplay_inst/tub_in5_reg[0]'
+INFO: [Synth 8-3886] merging instance 'TubDisplay_inst/tub_in6_reg[0]' (FDC) to 'TubDisplay_inst/tub_in5_reg[0]'
+INFO: [Synth 8-3886] merging instance 'TubDisplay_inst/tub_in7_reg[0]' (FDC) to 'TubDisplay_inst/tub_in5_reg[0]'
+INFO: [Synth 8-3886] merging instance 'TubDisplay_inst/tub_in5_reg[0]' (FDC) to 'TubDisplay_inst/tub_in4_reg[0]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (TubDisplay_inst/\tub_in4_reg[0] )
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[3]' (FDR) to 'idecode_inst/opcode_reg[3]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[2]' (FDR) to 'idecode_inst/opcode_reg[2]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[5]' (FDR) to 'idecode_inst/opcode_reg[5]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[4]' (FDR) to 'idecode_inst/opcode_reg[4]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[6]' (FDR) to 'idecode_inst/opcode_reg[6]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[0]' (FDR) to 'idecode_inst/opcode_reg[0]'
+INFO: [Synth 8-3886] merging instance 'idecode_inst/instruction_reg[1]' (FDR) to 'idecode_inst/opcode_reg[1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (TubDisplay_inst/\tub_data2_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (TubDisplay_inst/\tub_data1_reg[0] )
+WARNING: [Synth 8-3332] Sequential element (prev_negedge_slow_reg) is unused and will be removed from module KeyDebouncer.
+WARNING: [Synth 8-3332] Sequential element (but_negedge_reg) is unused and will be removed from module KeyDebouncer.
+WARNING: [Synth 8-3332] Sequential element (tub_data1_reg[0]) is unused and will be removed from module TubDisplay.
+WARNING: [Synth 8-3332] Sequential element (tub_data2_reg[0]) is unused and will be removed from module TubDisplay.
+WARNING: [Synth 8-3332] Sequential element (tub_in4_reg[0]) is unused and will be removed from module TubDisplay.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[31]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[30]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[29]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[28]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[27]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[26]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[25]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[24]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[23]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[22]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[21]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[20]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[19]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[18]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[17]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[16]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[15]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[14]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[13]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[12]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[11]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[10]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[9]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[8]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[7]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[6]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[5]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[4]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[3]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[2]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[1]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_instruction_reg[0]) is unused and will be removed from module idecode.
+WARNING: [Synth 8-3332] Sequential element (out_MemRead_reg) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct7_reg[6]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct7_reg[5]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct7_reg[4]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct7_reg[3]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct7_reg[2]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct7_reg[1]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct7_reg[0]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct3_reg[2]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct3_reg[1]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_funct3_reg[0]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs1_reg[4]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs1_reg[3]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs1_reg[2]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs1_reg[1]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs1_reg[0]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs2_reg[4]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs2_reg[3]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs2_reg[2]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs2_reg[1]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (out_rs2_reg[0]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (MemRead_reg) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs1_reg[4]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs1_reg[3]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs1_reg[2]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs1_reg[1]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs1_reg[0]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs2_reg[4]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs2_reg[3]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs2_reg[2]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs2_reg[1]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (rs2_reg[0]) is unused and will be removed from module exe.
+WARNING: [Synth 8-3332] Sequential element (funct7_reg[1]) is unused and will be removed from module dmem.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[6]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[7]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[8]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[9]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[10]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[11]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[12]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[13]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[14]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[15]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[16]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[17]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[18]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[19]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[20]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[21]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[22]) is unused and will be removed from module cpu_top.
+WARNING: [Synth 8-3332] Sequential element (cnt_reg[23]) is unused and will be removed from module cpu_top.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:03 ; elapsed = 00:00:23 . Memory (MB): peak = 744.672 ; gain = 501.758
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5578] Moved timing constraint from pin 'clk_wiz_inst/clk_out1' to pin 'clk_wiz_inst/bbstub_clk_out1/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'clk_wiz_inst/clk_out2' to pin 'clk_wiz_inst/bbstub_clk_out2/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'clk_wiz_inst/clk_out3' to pin 'clk_wiz_inst/bbstub_clk_out3/O'
+WARNING: [Synth 8-565] redefining clock 'fpga_clk'
+INFO: [Synth 8-5819] Moved 3 constraints on hierarchical pins to their respective driving/loading pins
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:04 ; elapsed = 00:00:28 . Memory (MB): peak = 762.457 ; gain = 519.543
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:04 ; elapsed = 00:00:29 . Memory (MB): peak = 785.059 ; gain = 542.145
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_wiz       |         1|
+|2     |uart_bmpg_0   |         1|
+|3     |dmem_uram     |         1|
+|4     |instr_mem     |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+------------+------+
+|      |Cell        |Count |
++------+------------+------+
+|1     |clk_wiz     |     1|
+|2     |dmem_uram   |     1|
+|3     |instr_mem   |     1|
+|4     |uart_bmpg_0 |     1|
+|5     |BUFG        |     1|
+|6     |CARRY4      |    88|
+|7     |LUT1        |    67|
+|8     |LUT2        |   181|
+|9     |LUT3        |   316|
+|10    |LUT4        |   318|
+|11    |LUT5        |   190|
+|12    |LUT6        |  1085|
+|13    |MUXF7       |   286|
+|14    |FDCE        |  1486|
+|15    |FDPE        |    39|
+|16    |FDRE        |   451|
+|17    |FDSE        |    36|
+|18    |LD          |     3|
+|19    |LDC         |    14|
+|20    |IBUF        |    18|
+|21    |OBUF        |    38|
+|22    |OBUFT       |     3|
++------+------------+------+
+
+Report Instance Areas: 
++------+------------------+---------------+------+
+|      |Instance          |Module         |Cells |
++------+------------------+---------------+------+
+|1     |top               |               |  4739|
+|2     |  TubDisplay_inst |TubDisplay     |   194|
+|3     |  dmem_inst       |dmem           |   246|
+|4     |  exe_inst        |exe            |  1078|
+|5     |  idecode_inst    |idecode        |  2444|
+|6     |    ucontrol      |control        |    61|
+|7     |    uregister     |register       |  2167|
+|8     |  ifetch_inst     |ifetch         |   186|
+|9     |  u_but           |KeyDebouncer   |    97|
+|10    |  uart_rst_but    |KeyDebouncer_0 |    58|
+|11    |  wback_inst      |wback          |   171|
++------+------------------+---------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:04 ; elapsed = 00:00:30 . Memory (MB): peak = 838.742 ; gain = 595.828
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 208 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 838.742 ; gain = 248.234
+Synthesis Optimization Complete : Time (s): cpu = 00:00:04 ; elapsed = 00:00:31 . Memory (MB): peak = 838.742 ; gain = 595.828
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 409 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 17 instances were transformed.
+  LD => LDCE: 3 instances
+  LDC => LDCE: 14 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+158 Infos, 222 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:04 ; elapsed = 00:00:34 . Memory (MB): peak = 838.742 ; gain = 607.348
+INFO: [Common 17-1381] The checkpoint 'D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1/cpu_top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file cpu_top_utilization_synth.rpt -pb cpu_top_utilization_synth.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 838.742 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Mon May 27 11:49:54 2024...

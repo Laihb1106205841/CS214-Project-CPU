@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="dmem_uram_synth_1" LaunchDir="D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/dmem_uram_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="instr_mem_synth_1" LaunchDir="D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/instr_mem_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="dmem_uram_synth_1"/>
+		<Parent Id="instr_mem_synth_1"/>
+	</Run>
+	<Run Id="impl_1" LaunchDir="D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/impl_1" FlowId="Vivado_Implementation" FromStepId="init_design" ToStepId="write_bitstream">
+		<Parent Id="synth_1"/>
+		<Parent Id="dmem_uram_synth_1"/>
+		<Parent Id="instr_mem_synth_1"/>
+	</Run>
+</Runs>
+

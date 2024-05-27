@@ -1,0 +1,32 @@
+- addi
+- ecall
+- add
+- and
+- beq
+- bne
+- blt
+- bge
+- bltu
+- bgeu
+- srli
+- jal
+- andi
+- xori
+- lui
+- slli
+- jalr
+
+- fcvt.wu.s *, *, rup / rtz / rne
+
+- sw
+- lb
+- lbu
+- lw
+
+R-format: add, and
+I-format: addi, xori, andi, slli, srli; lb, lbu, lw; jalr; ecall
+S-format: sw
+B-format: beq, bne, blt, bge, bltu, bgeu
+J-format: jal
+U-format: lui
+fp: fcvt.wu.s *, *, rup / rtz / rne

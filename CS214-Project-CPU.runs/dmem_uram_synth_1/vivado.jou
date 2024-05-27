@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Mon May 27 10:54:11 2024
+# Process ID: 6940
+# Current directory: D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/dmem_uram_synth_1
+# Command line: vivado.exe -log dmem_uram.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source dmem_uram.tcl
+# Log file: D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/dmem_uram_synth_1/dmem_uram.vds
+# Journal file: D:/SUSTech/02Sophomore/DigitalDesign/CS214-Project-CPU-debug/CS214-Project-CPU.runs/dmem_uram_synth_1\vivado.jou
+#-----------------------------------------------------------
+source dmem_uram.tcl -notrace
